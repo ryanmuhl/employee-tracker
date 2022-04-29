@@ -1,16 +1,13 @@
-// Import and require mysql2
-const mysql = require('mysql2');
+const express = require('express');
+const sequelize = require('./config/connection');
 
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    // MySQL username,
-    user: 'root',
-    // {TODO: Add your MySQL password}
-    password: '',
-    database: 'employee_db'
-  },
-  console.log(`Connected to the inventory_db database.`)
-);
+const app = express();
+const PORT = process.env.PORT || 3001;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// turn on connection to db and server
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log('Now listening'));
+  });

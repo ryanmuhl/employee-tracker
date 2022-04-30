@@ -12,7 +12,31 @@ class DB {
       
     }
 
-    
+    findAllRoles () {
+        return this.connection.promise().query(
+            "SELECT * FROM ROLES"
+        )
+        
+      }
+
+      findAllDepartments () {
+        return this.connection.promise().query(
+            "SELECT * FROM DEPARTMENT"
+        )
+        
+      }
+
+      
+      addEmployee () {
+        return this.connection.promise().query(
+            "INSERT INTO employee SET"
+        )
+        
+      }
+      
+
 }
+
+
 
 module.exports = new DB(connection)

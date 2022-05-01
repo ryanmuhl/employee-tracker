@@ -52,14 +52,6 @@ const cTable = require('console.table');
 
     
    
-
-
-
-
-    
-
-
-
 function viewEmployees () {
     db.findAllEmployees()
     .then(([rows]) => {
@@ -109,8 +101,10 @@ function addEmployeeTable() {
                 message: "Enter Manager Id:",
             },
         ])
+        
         .then((answer) => {
-            db.addEmployee(
+            db.connection.query(
+                `INSERT INTO employee SET ?`,
                 {
                     first_name: answer.firstName,
                     last_name: answer.lastName,

@@ -27,12 +27,12 @@ class DB {
       }
 
       
-      addEmployee () {
-        return this.connection.promise().query(
-            "INSERT INTO employee SET"
-        )
+    //   addEmployee () {
+    //     return this.connection.promise().query(
+    //         "INSERT INTO EMPLOYEE SET ?"
+    //     )
         
-      }
+    //   }
       
 
 }

@@ -23,7 +23,7 @@ VALUES
 ("Ryan", "Uhl", 1, 101 ),
 ("Rebecca", "Uhl", 2, 102 ),
 ("Ted", "Lasso", 3, 103 ),
-("Luke", "Skywalker", 4, 104 ),
-("Michael", "Scott", 5, 105 ),
-("Obiwan", "Kenobi", 6, 106 ),
+("Luke", "Skywalker", 4, 104),
+("Michael", "Scott", 5, 105),
+("Obiwan", "Kenobi", 6, 106),
 ("Sean", "Spenser", 7, 107 );

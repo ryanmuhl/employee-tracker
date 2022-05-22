@@ -3,7 +3,13 @@ const db = require('./db');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
+init ();
 
+function init () {
+    queries ();
+}
+
+function queries() {
     inquirer.prompt([
        {
            type: "list",
@@ -11,22 +17,38 @@ const cTable = require('console.table');
            message: "Select Employee Information",
            choices: [
                {
-                   name: "view all employees",
+                   name: "View all employees",
                    value: "VIEWEMPLOYEES",
                },
                {
-                   name: "view all roles",
+                   name: "View all roles",
                    value: "VIEWALLROLES",
 
                },
                {
-                name: "view all departments",
+                name: "View all departments",
                 value: "VIEWALLDEPARTMENTS",
 
             },
             {
-                name: "add employee",
+                name: "Add employee",
                 value: "ADDEMPLOYEE"
+            },
+            {
+                name: "Update employee role",
+                value: "UPDATEEMPLOYEE"
+            },
+            {
+                name: "Add role",
+                value: "ADDROLE"
+            },
+            {
+                name: "Add department",
+                value: "ADDDEPARTMENT"
+            },
+            {
+                name: "Quit",
+                value: "QUIT"
             }
            ]
 
@@ -46,9 +68,21 @@ const cTable = require('console.table');
             break;
             case "ADDEMPLOYEE": 
             addEmployeeTable()
-
+            break;
+            case "UPDATEEMPLOYEE":
+            updateEmployeeTable()
+            break;
+            case "ADDROLE":
+            addRole()
+            break;
+            case "ADDDEPARTMENT":
+            addDepartment()
+            break;
+            case "QUIT":
+            quit()
         }
     })
+}
 
     
    
@@ -57,7 +91,7 @@ function viewEmployees () {
     .then(([rows]) => {
         let employees = rows
         console.table(employees)
-    })
+    }).then (() => queries()) 
 
 }
 
@@ -66,7 +100,7 @@ function viewEmployeesRoles () {
     .then(([rows]) => {
         let roles= rows
         console.table(roles)
-    })
+    }).then (() => queries()) 
 }
 
 function viewEmployeesDepartments () {
@@ -74,7 +108,7 @@ function viewEmployeesDepartments () {
     .then(([rows]) => {
         let department = rows
         console.table(department)
-    })
+    }).then (() => queries()) 
 }
 
 function addEmployeeTable() {
@@ -117,5 +151,95 @@ function addEmployeeTable() {
                     
                 }
             );
-        });
+        }).then (() => queries()) 
+}
+
+function updateEmployeeTable () {
+    db.findAllEmployees()
+    .then(([rows]) => {
+        let employees = rows
+        const employeeChoices = employees.map(({id, first_name, last_name}) => ({
+            name: `${first_name}${last_name}`,
+            value: id,
+        }))
+
+        inquirer.prompt([
+            {
+                name: "employeeid",
+                type: "list",
+                message: "Which Employee Role Would You Like To Update?",
+                choices: employeeChoices
+            }
+        ]).then(res => {
+            let employeeid = res.employeeid
+            db.findAllRoles()
+            .then(([rows]) => {
+                let roles =rows
+                const roleChoices = roles.map(({id, title}) => ({
+                    name: title,
+                    value: id
+                }))
+                inquirer.prompt([
+                    {
+                        name: "roleid",
+                        type: "list",
+                        message: "Which Roll Would You Like The Employee To Have?",
+                        choices: roleChoices
+                    }
+
+                ]).then(res => db.updateEmployeeData(employeeid, res.roleid))
+                .then(()=> console.log ("Updated Employees Role"))
+                .then(() => queries())
+            })
+        })
+    });
+}
+
+function addRole () {
+    db.findAllDepartments()
+    .then(([rows]) => {
+        let departments = rows
+        const departmentChoices = departments.map(({id, names} )=> ({
+            name: names,
+            value: id,
+    
+        }))
+        inquirer.prompt ([
+            {
+                name: "title",
+                message: "What is the name of this role?"
+            },
+            {
+                name: "salary",
+                message: "What is the employee's salary?"
+            },
+            {
+                type: "list",
+                name: "department_id",
+                message: "Which department does this role belong to?",
+                choices: departmentChoices
+            },
+        ]).then(role => {
+            db.createRole(role)
+            .then(() => queries())
+        })
+    })
+
+}
+
+function addDepartment () {
+    inquirer.prompt([
+        {
+            name: "names",
+            message: "what is the name of the Department?"
+        },
+
+    ]).then(department => {
+        db.createDepartment(department)
+        .then(() => queries())
+    })
+}
+
+function quit () {
+    process.exit();
 }

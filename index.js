@@ -158,9 +158,9 @@ function updateEmployeeTable () {
     db.findAllEmployees()
     .then(([rows]) => {
         let employees = rows
-        const employeeChoices = employees.map(({id, first_name, last_name}) => ({
+        const employeeChoices = employees.map(({employee_id, first_name, last_name}) => ({
             name: `${first_name}${last_name}`,
-            value: id,
+            value: employee_id,
         }))
 
         inquirer.prompt([
@@ -172,12 +172,13 @@ function updateEmployeeTable () {
             }
         ]).then(res => {
             let employeeid = res.employeeid
+            console.log(res)
             db.findAllRoles()
             .then(([rows]) => {
                 let roles =rows
-                const roleChoices = roles.map(({id, title}) => ({
-                    name: title,
-                    value: id
+                const roleChoices = roles.map(({role_id, role_title}) => ({
+                    name: role_title,
+                    value: role_id
                 }))
                 inquirer.prompt([
                     {
@@ -187,7 +188,8 @@ function updateEmployeeTable () {
                         choices: roleChoices
                     }
 
-                ]).then(res => db.updateEmployeeData(employeeid, res.roleid))
+                ]).then((res) => {db.updateEmployeeData(res.roleid, employeeid )
+                    console.log(res, employeeid)})
                 .then(()=> console.log ("Updated Employees Role"))
                 .then(() => queries())
             })

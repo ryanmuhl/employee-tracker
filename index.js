@@ -9,6 +9,8 @@ function init () {
     queries ();
 }
 
+//Main Inquire prompt to View All Employees, View All Roles, View All Departments,
+//Add Employee, Update Employee Role, Add Role, Add Department, and Quit
 function queries() {
     inquirer.prompt([
        {
@@ -85,7 +87,7 @@ function queries() {
 }
 
     
-   
+//Function which calls Method to find all employee Data   
 function viewEmployees () {
     db.findAllEmployees()
     .then(([rows]) => {
@@ -95,6 +97,7 @@ function viewEmployees () {
 
 }
 
+//Function which calls Method to find all employee Roles
 function viewEmployeesRoles () {
     db.findAllRoles()
     .then(([rows]) => {
@@ -103,6 +106,7 @@ function viewEmployeesRoles () {
     }).then (() => queries()) 
 }
 
+//Function which calls Method to view all Departments
 function viewEmployeesDepartments () {
     db.findAllDepartments()
     .then(([rows]) => {
@@ -111,6 +115,7 @@ function viewEmployeesDepartments () {
     }).then (() => queries()) 
 }
 
+//Function that to add employee via a series of prompts
 function addEmployeeTable() {
     inquirer
         .prompt([
@@ -154,6 +159,8 @@ function addEmployeeTable() {
         }).then (() => queries()) 
 }
 
+//Function which calls Method to find all employee Data  then runs a series of inquier prompts to update
+//to update employee role.  Method called after prompts to update employee role (updateEmployeeData)
 function updateEmployeeTable () {
     db.findAllEmployees()
     .then(([rows]) => {
@@ -197,6 +204,8 @@ function updateEmployeeTable () {
     });
 }
 
+//Function which calls Method to find all Departments  then runs a series of inquier prompts to add
+//a role.  Method called after prompts to create employee role (createRole)
 function addRole () {
     db.findAllDepartments()
     .then(([rows]) => {
@@ -229,6 +238,7 @@ function addRole () {
 
 }
 
+//Function adds deparment via method call (createDepartment) and a series of inquirer prompts
 function addDepartment () {
     inquirer.prompt([
         {

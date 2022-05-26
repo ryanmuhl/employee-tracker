@@ -5,6 +5,7 @@ class DB {
         this.connection = connection
     }
 
+    //Method to find all employees and join columns from roles and department
     findAllEmployees () {
       return this.connection.promise().query(
         `SELECT 
@@ -24,6 +25,7 @@ class DB {
       
     }
 
+    //Method to find all roles and join columns from roles and department
     findAllRoles () {
         return this.connection.promise().query(
             `SELECT 
@@ -38,6 +40,7 @@ class DB {
         
       }
 
+      //Method to find all departments
       findAllDepartments () {
         return this.connection.promise().query(
             "SELECT * FROM DEPARTMENT"
@@ -45,7 +48,7 @@ class DB {
         
       }
 
-      
+      //Method to update employee role 
       updateEmployeeData (roleid, employeeid ) {
         return this.connection.promise().query(
             "UPDATE employee SET role_id = ? WHERE id = ?",
@@ -54,12 +57,14 @@ class DB {
         
       }
 
+      //Method to create an employee role
       createRole (role) {
         return this.connection.promise().query(
           "INSERT INTO roles SET ?", role
         )
       }
 
+      //Method to create a department
       createDepartment (department) {
         return this.connection.promise().query(
           "INSERT INTO department SET ?", department

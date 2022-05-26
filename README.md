@@ -32,7 +32,7 @@ Create an application to be able to view and manage departments, roles, and empl
 https://github.com/ryanmuhl/employee-tracker
 
 ## Screencastify
-https://drive.google.com/file/d/1WD31E6waE2WvDVYLTDcLxXCrsjy0uwWI/view
+
 
 ## Contribution
 Created/Designed by Ryan M. Uhl

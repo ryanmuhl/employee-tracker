@@ -34,6 +34,7 @@ Create an application to be able to view and manage departments, roles, and empl
 * Type SOURCE db/seeds.sql (Seeds Data)
 * Go back to main terminal and type node index.js to run prompts
 * Follow promt instructions
+* When Cloning repository, please add .env file with DB_NAME, DB_USER, DB_PW
 
 
 ## Repository

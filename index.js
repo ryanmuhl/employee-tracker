@@ -166,7 +166,7 @@ function updateEmployeeTable () {
     .then(([rows]) => {
         let employees = rows
         const employeeChoices = employees.map(({employee_id, first_name, last_name}) => ({
-            name: `${first_name}${last_name}`,
+            name: `${first_name} ${last_name}`,
             value: employee_id,
         }))
 

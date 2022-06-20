@@ -27,6 +27,14 @@ Create an application to be able to view and manage departments, roles, and empl
 * EXPRESS
 * INQUIRER
 
+## Installation Instructions
+* Type NPM Install in Terminal
+* Open second terminal and Sign into MYSQL shell
+* Type SOURCE db/schema.sql (Creates Database)
+* Type SOURCE db/seeds.sql (Seeds Data)
+* Go back to main terminal and type node index.js to run prompts
+* Follow promt instructions
+
 
 ## Repository
 https://github.com/ryanmuhl/employee-tracker
